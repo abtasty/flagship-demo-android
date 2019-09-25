@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Flagship Demo</string>
+    <string name="title_activity_flagship">Flagship Demo</string>
+
+    <string name="flagship_campaign_1_title">1) Bottom logo</string>
+    <string name="flagship_campaign_1_desc">This campaign displays a logo at the bottom left \nof this app.</string>
+    <string name="flagship_campaign_1_type">PERSO</string>
+
+    <string name="flagship_campaign_2_title">2) VIP Feature</string>
+    <string name="flagship_campaign_2_desc">This campaign enable tracking feature for VIP\nvisitors only.</string>
+    <string name="flagship_campaign_2_type">TOGGLE</string>
+
+    <string name="flagship_campaign_3_title">3) Title wording / color</string>
+    <string name="flagship_campaign_3_desc">This campaign changes the title wording and color \naccording to visitor context values.</string>
+    <string name="flagship_campaign_3_type">AB TEST</string>
+
+    <string name="flagship_campaign_4_title">4) Title wording / Size </string>
+    <string name="flagship_campaign_4_desc">This campaign changes the title if the user has not \nlaunched the app since 5 days.</string>
+    <string name="flagship_campaign_4_type">AB TEST</string>
+
+    <string name="flagship_campaign_5_title">Send hit tracking</string>
+    <string name="flagship_campaign_5_desc">Click on buttons to send the corresponding hit tracking (see in logs).</string>
+    <string name="flagship_campaign_5_vip">Sorry this feature is only available for VIP users.</string>
+    <string name="flagship_campaign_5_page">Page</string>
+    <string name="flagship_campaign_5_event">Event</string>
+    <string name="flagship_campaign_5_transaction">Transaction</string>
+    <string name="flagship_campaign_5_item">Item</string>
+
+
+    <string name="flagship_dialog_context">Visitor context</string>
+    <string name="flagship_dialog_visitorId">Visitor ID :</string>
+    <string name="flagship_dialog_vip">VIP user :</string>
+    <string name="flagship_dialog_days">Days since last app \nlaunch :</string>
+
+
+
+</resources>

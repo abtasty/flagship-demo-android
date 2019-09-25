@@ -1,0 +1,4 @@
+<resources tools:context=".Flagship" xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="fab_margin">20dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">36dp</dimen>
+</resources>
