@@ -18,3 +18,4 @@ FlagshipDemo.iml
 gradle.properties
 keystore.properties
 local.properties
+.idea/
