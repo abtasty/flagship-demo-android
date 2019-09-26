@@ -12,3 +12,9 @@
 /captures
 .externalNativeBuild
 flagship/
+build
+build/
+FlagshipDemo.iml
+gradle.properties
+keystore.properties
+local.properties
