@@ -19,3 +19,4 @@ gradle.properties
 keystore.properties
 local.properties
 .idea/
+.gradle/
