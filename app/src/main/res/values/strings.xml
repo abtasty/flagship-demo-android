@@ -14,7 +14,7 @@
     <string name="flagship_campaign_3_desc">This campaign changes the title wording and color \naccording to visitor context values.</string>
     <string name="flagship_campaign_3_type">AB TEST</string>
 
-    <string name="flagship_campaign_4_title">4) Title wording / Size </string>
+    <string name="flagship_campaign_4_title">4) Title wording / size </string>
     <string name="flagship_campaign_4_desc">This campaign changes the title if the user has not \nlaunched the app since 5 days.</string>
     <string name="flagship_campaign_4_type">AB TEST</string>
 
@@ -32,6 +32,7 @@
     <string name="flagship_dialog_vip">VIP user :</string>
     <string name="flagship_dialog_days">Days since last app \nlaunch :</string>
 
+    <string name="flagship_configuration_desc">Zoom in the image to see the campaign configuration\nto reproduce in your account : </string>
 
 
 </resources>
