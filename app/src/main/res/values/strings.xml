@@ -34,5 +34,12 @@
 
     <string name="flagship_configuration_desc">Zoom in the image to see the campaign configuration\nto reproduce in your account : </string>
 
+    <string name="flagship_qa_envid_title">Your envID : </string>
+    <string name="flagship_qa_envid_new"><u>Add new</u></string>
+    <string name="flagship_qa_envid_name">Name</string>
+    <string name="flagship_qa_envid_id">Id</string>
+
+    <string name="flagship_qa_envid_warning">Warning ! you have to kill and restart your application for this to take effect.</string>
+
 
 </resources>

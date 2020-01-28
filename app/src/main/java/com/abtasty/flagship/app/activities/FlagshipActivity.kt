@@ -8,6 +8,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +18,7 @@ import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.app.R
 import com.abtasty.flagship.app.adapters.FlagshipRecyclerViewAdapter
 import com.abtasty.flagship.app.interfaces.IFlagshipRecycler
+import com.abtasty.flagship.app.utils.EnvManager
 import com.abtasty.flagship.main.Flagship
 import kotlinx.android.synthetic.main.activity_flagship.*
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.*
@@ -74,9 +78,14 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
         initComponents()
 
         //Flagship init
-        Flagship.start(this.applicationContext, "") //Todo YOUR ENV ID HERE
+//        Flagship.start(this.applicationContext, "bkk4s7gcmjcg07fke9dg") //Todo YOUR ENV ID HERE
+        Flagship.start(this.applicationContext, EnvManager.loadSelectedEnvId(this, true)) //Todo YOUR ENV ID HERE
         Flagship.setVisitorId(visitorId)
         Flagship.enableLog(Flagship.LogMode.ALL)
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         updateContext()
         updateView()
@@ -242,6 +251,27 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
         daysSinceLastLaunch = pref.getInt("daysSinceLastLaunch", 0)
         isVIPUser = pref.getBoolean("isVIPUser", false)
         visitorId = pref.getString("visitorId", "defaultId")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.qa -> {
+                startQaActivity()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun startQaActivity() {
+        val i = Intent(this, QaActivity::class.java)
+        startActivity(i)
     }
 
 }
