@@ -8,7 +8,7 @@
         android:padding="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".activities.QaActivity">
+        tools:context=".qa.QaActivity">
 
     <com.abtasty.flagship.app.utils.LatoLightTextView
             android:id="@+id/envid_title"
@@ -36,4 +36,25 @@
             android:textColor="@color/gradient_selected_start"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/envid_spinner" />
+
+    <com.abtasty.flagship.app.utils.LatoLightTextView
+            android:id="@+id/envid_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/flagship_qa_section_title"
+            android:textColor="@color/gradient_start"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/envid_add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/flagship_qa_section_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/envid_title2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

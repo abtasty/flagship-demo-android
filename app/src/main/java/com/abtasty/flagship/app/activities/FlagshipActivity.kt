@@ -18,6 +18,7 @@ import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.app.R
 import com.abtasty.flagship.app.adapters.FlagshipRecyclerViewAdapter
 import com.abtasty.flagship.app.interfaces.IFlagshipRecycler
+import com.abtasty.flagship.app.qa.QaActivity
 import com.abtasty.flagship.app.utils.EnvManager
 import com.abtasty.flagship.main.Flagship
 import kotlinx.android.synthetic.main.activity_flagship.*

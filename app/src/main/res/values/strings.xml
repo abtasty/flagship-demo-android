@@ -40,6 +40,10 @@
     <string name="flagship_qa_envid_id">Id</string>
 
     <string name="flagship_qa_envid_warning">Warning ! you have to kill and restart your application for this to take effect.</string>
-
+    <string name="flagship_qa_section_title">QA sections : </string>
+    <string name="flagship_qa_section_context_send">Send campaigns request</string>
+    <string name="flagship_qa_section_context_reset">reset</string>
+    <string name="flagship_qa_auto_context">Predefined context:</string>
+    <string name="flagship_qa_auto_context_results">Results \'IS_TARGET_OK\': </string>
 
 </resources>
