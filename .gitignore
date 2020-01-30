@@ -11,7 +11,7 @@
 /build
 /captures
 .externalNativeBuild
-flagship/
+/flagship/
 build
 build/
 FlagshipDemo.iml
