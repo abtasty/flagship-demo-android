@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app.qa
+package com.abtasty.flagship_demo.app.qa
 
 import android.content.Context
 import android.text.Editable
@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.abtasty.flagship.app.R
 import com.abtasty.flagship.main.Flagship
 import com.abtasty.flagship.utils.FlagshipContext
+import com.abtasty.flagship_demo.app.R
 import kotlinx.android.synthetic.main.flagship_qa_auto_context_item.view.*
 
 class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSectionViewHolder>(){

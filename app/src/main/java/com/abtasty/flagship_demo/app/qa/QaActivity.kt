@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app.qa
+package com.abtasty.flagship_demo.app.qa
 
 import android.app.Dialog
 import android.content.Intent
@@ -11,9 +11,9 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.abtasty.flagship.app.R
-import com.abtasty.flagship.app.utils.EnvManager
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship_demo.app.R
+import com.abtasty.flagship_demo.app.utils.EnvManager
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.save
 import kotlinx.android.synthetic.main.activity_qa.*
 import kotlinx.android.synthetic.main.activity_qa_dialog.view.*

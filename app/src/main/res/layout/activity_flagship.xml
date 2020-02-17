@@ -7,7 +7,7 @@
         android:background="@color/dark_grey"
         tools:context=".Flagship">
 
-    <com.abtasty.flagship.app.utils.LatoRegularTextView
+    <com.abtasty.flagship_demo.app.utils.LatoRegularTextView
             android:id="@+id/main_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <com.abtasty.flagship.app.utils.LatoItalicTextView
+    <com.abtasty.flagship_demo.app.utils.LatoItalicTextView
             android:id="@+id/user_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             app:layout_constraintBottom_toBottomOf="@id/main_title"
             app:layout_constraintLeft_toRightOf="@id/main_title" />
 
-    <com.abtasty.flagship.app.utils.LatoRegularTextView
+    <com.abtasty.flagship_demo.app.utils.LatoRegularTextView
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

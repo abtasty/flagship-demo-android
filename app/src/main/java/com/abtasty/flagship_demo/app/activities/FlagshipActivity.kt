@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app.activities
+package com.abtasty.flagship_demo.app.activities
 
 import android.app.Dialog
 import android.content.Context
@@ -15,12 +15,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.api.Hit
-import com.abtasty.flagship.app.R
-import com.abtasty.flagship.app.adapters.FlagshipRecyclerViewAdapter
-import com.abtasty.flagship.app.interfaces.IFlagshipRecycler
-import com.abtasty.flagship.app.qa.QaActivity
-import com.abtasty.flagship.app.utils.EnvManager
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship_demo.app.R
+import com.abtasty.flagship_demo.app.adapters.FlagshipRecyclerViewAdapter
+import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
+import com.abtasty.flagship_demo.app.qa.QaActivity
+import com.abtasty.flagship_demo.app.utils.EnvManager
 import kotlinx.android.synthetic.main.activity_flagship.*
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.*
 import kotlinx.coroutines.GlobalScope

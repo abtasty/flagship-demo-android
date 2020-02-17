@@ -1,12 +1,12 @@
-package com.abtasty.flagship.app
+package com.abtasty.flagship_demo.app
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.abtasty.flagship.api.Hit
-import com.abtasty.flagship.main.Flagship
-import com.abtasty.flagship.model.Modification
-import com.abtasty.flagship.utils.Utils
+import com.abtasty.flagship_demo.api.Hit
+import com.abtasty.flagship_demo.main.Flagship
+import com.abtasty.flagship_demo.model.Modification
+import com.abtasty.flagship_demo.utils.Utils
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

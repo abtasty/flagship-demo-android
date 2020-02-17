@@ -1,10 +1,10 @@
-package com.abtasty.flagship.app.qa
+package com.abtasty.flagship_demo.app.qa
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.abtasty.flagship.app.R
+import com.abtasty.flagship_demo.app.R
 import kotlinx.android.synthetic.main.flagship_qa_section_item.view.*
 
 class QaSectionAdapter(var onClick : (Int) -> (Unit)) : RecyclerView.Adapter<QaSectionAdapter.QaSectionViewHolder>(){

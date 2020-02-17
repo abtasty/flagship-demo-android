@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app.interfaces
+package com.abtasty.flagship_demo.app.interfaces
 
 interface IFlagshipRecycler {
     fun onPageClick()

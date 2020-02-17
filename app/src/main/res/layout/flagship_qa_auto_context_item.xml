@@ -10,7 +10,7 @@
             android:orientation="horizontal"
             android:weightSum="1">
 
-        <com.abtasty.flagship.app.utils.LatoLightTextView
+        <com.abtasty.flagship_demo.app.utils.LatoLightTextView
                 android:id="@+id/qa_auto_context_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

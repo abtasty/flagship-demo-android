@@ -9,7 +9,7 @@
         android:clickable="true"
         android:paddingTop="15dp">
 
-    <com.abtasty.flagship.app.utils.LatoBoldTextView
+    <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
             android:id="@+id/item_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <com.abtasty.flagship.app.utils.LatoRegularTextView
+    <com.abtasty.flagship_demo.app.utils.LatoRegularTextView
             android:id="@+id/item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <com.abtasty.flagship.app.utils.LatoRegularTextView
+    <com.abtasty.flagship_demo.app.utils.LatoRegularTextView
             android:id="@+id/item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

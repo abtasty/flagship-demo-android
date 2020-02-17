@@ -1,9 +1,9 @@
-package com.abtasty.flagship.app.activities
+package com.abtasty.flagship_demo.app.activities
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.abtasty.flagship.app.R
+import com.abtasty.flagship_demo.app.R
 import kotlinx.android.synthetic.main.activity_configuration.*
 
 

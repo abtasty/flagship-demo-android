@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app.utils
+package com.abtasty.flagship_demo.app.utils
 
 import android.content.Context
 import android.graphics.Typeface

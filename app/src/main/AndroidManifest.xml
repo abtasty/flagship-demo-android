@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.abtasty.flagship.app">
+        package="com.abtasty.flagship_demo.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,11 +11,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".qa.AutomaticContextActivity"></activity>
-        <activity android:name=".qa.QaActivity" />
-        <activity android:name=".activities.ConfigurationActivity" />
+        <activity android:name="com.abtasty.flagship_demo.app.qa.AutomaticContextActivity"></activity>
+        <activity android:name="com.abtasty.flagship_demo.app.qa.QaActivity" />
+        <activity android:name="com.abtasty.flagship_demo.app.activities.ConfigurationActivity" />
         <activity
-                android:name=".activities.FlagshipActivity"
+                android:name="com.abtasty.flagship_demo.app.activities.FlagshipActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

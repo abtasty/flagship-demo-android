@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app.utils
+package com.abtasty.flagship_demo.app.utils
 
 import android.content.Context
 import android.graphics.Matrix
@@ -6,7 +6,6 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import kotlin.math.min
 
