@@ -67,10 +67,12 @@ class QaActivity : AppCompatActivity() {
             ) {
                 parent?.adapter?.getItem(position)?.let {
                     EnvManager.saveSelectedEnvId(this@QaActivity, it as String)
-//                    Toast.makeText(this@QaActivity, R.string.flagship_qa_envid_warning, Toast.LENGTH_LONG).show()
-                    Flagship.start(this@QaActivity,
-                        EnvManager.loadSelectedEnvId(this@QaActivity, true),
-                        EnvManager.loadVisitorId(this@QaActivity))
+
+//                    Flagship.start(this@QaActivity,
+//                        EnvManager.loadSelectedEnvId(this@QaActivity, true),
+//                        EnvManager.loadVisitorId(this@QaActivity))
+                    Flagship.FlagshipBuilder(this@QaActivity, EnvManager.loadSelectedEnvId(this@QaActivity, true))
+                        .withVisitorId(EnvManager.loadVisitorId(this@QaActivity))
                 }
             }
         }

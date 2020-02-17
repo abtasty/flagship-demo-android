@@ -78,11 +78,16 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
         initComponents()
 
-        //Flagship init
-//        Flagship.start(this.applicationContext, "bkk4s7gcmjcg07fke9dg") //Todo YOUR ENV ID HERE
-        Flagship.start(this.applicationContext, EnvManager.loadSelectedEnvId(this, true)) //Todo YOUR ENV ID HERE
-        Flagship.setVisitorId(visitorId)
-        Flagship.enableLog(Flagship.LogMode.ALL)
+//        //Flagship init
+////        Flagship.start(this.applicationContext, "bkk4s7gcmjcg07fke9dg") //Todo YOUR ENV ID HERE
+//        Flagship.start(this.applicationContext, EnvManager.loadSelectedEnvId(this, true)) //Todo YOUR ENV ID HERE
+//        Flagship.setVisitorId(visitorId)
+//        Flagship.enableLog(Flagship.LogMode.ALL)
+
+        Flagship.FlagshipBuilder(applicationContext, EnvManager.loadSelectedEnvId(this, true))
+            .withLogEnabled(Flagship.LogMode.ALL)
+            .withVisitorId(visitorId)
+            .start()
     }
 
     override fun onResume() {
@@ -111,11 +116,11 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
     private fun updateView() {
 
         user_id.text = visitorId
-        Flagship.syncCampaignModifications {
+        Flagship.syncCampaignModifications({
             this@FlagshipActivity.runOnUiThread {
                 applyFlagship()
             }
-        }
+        })
     }
 
     /**
