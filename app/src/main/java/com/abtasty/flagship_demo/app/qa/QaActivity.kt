@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CompoundButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,23 +40,35 @@ class QaActivity : AppCompatActivity() {
             QaSectionAdapter {
                 startSubQAActivity(it)
             }
+
+        val mode = EnvManager.loadModeEnvId(this)
+        if (mode == 0)
+            env_id_use_bucketing.isChecked = false
+        else if (mode == 1)
+            env_id_use_bucketing.isChecked = true
     }
 
     fun startSubQAActivity(position: Int) {
-        val intent = Intent(this, when (position) {
-             0 -> AutomaticContextActivity::class.java
-            else -> null
-        })
+        val intent = Intent(
+            this, when (position) {
+                0 -> AutomaticContextActivity::class.java
+                1 -> QaBucketingActivity::class.java
+                else -> null
+            }
+        )
         startActivity(intent)
     }
 
 
     private fun initSpinner() {
 
-        envid_spinner.background.setColorFilter(ContextCompat.getColor(this, android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+        envid_spinner.background.setColorFilter(
+            ContextCompat.getColor(this, android.R.color.white),
+            PorterDuff.Mode.SRC_ATOP
+        )
         refreshSpinner()
-        envid_add.setOnClickListener {showAddDialog()}
-        envid_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        envid_add.setOnClickListener { showAddDialog() }
+        envid_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -71,12 +85,21 @@ class QaActivity : AppCompatActivity() {
 //                    Flagship.start(this@QaActivity,
 //                        EnvManager.loadSelectedEnvId(this@QaActivity, true),
 //                        EnvManager.loadVisitorId(this@QaActivity))
-                    Flagship.FlagshipBuilder(this@QaActivity, EnvManager.loadSelectedEnvId(this@QaActivity, true))
-                        .withVisitorId(EnvManager.loadVisitorId(this@QaActivity))
+                    restartSDK()
                 }
             }
         }
 
+        env_id_use_bucketing.setOnCheckedChangeListener { buttonView, isChecked ->
+            EnvManager.saveModeEnvId(this@QaActivity, if (isChecked) 1 else 0)
+            restartSDK()
+        }
+    }
+
+    private fun restartSDK() {
+        Flagship.Builder(this@QaActivity, EnvManager.loadSelectedEnvId(this@QaActivity, true))
+            .withFlagshipMode(if (env_id_use_bucketing.isChecked) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
+            .withVisitorId(EnvManager.loadVisitorId(this@QaActivity))
     }
 
     private fun showAddDialog() {
@@ -103,7 +126,7 @@ class QaActivity : AppCompatActivity() {
     }
 
     private fun refreshSpinner() {
-        val list = EnvManager.loadEnvId(this).map { e ->  e.key + " - " + e.value}
+        val list = EnvManager.loadEnvId(this).map { e -> e.key + " - " + e.value }
         val selected = EnvManager.loadSelectedEnvId(this)
         val index = list.indexOf(selected)
         envid_spinner.adapter = ArrayAdapter(this, R.layout.activity_qa_spinner_elem, list)
@@ -112,7 +135,7 @@ class QaActivity : AppCompatActivity() {
         }
     }
 
-    private fun addNewEndId(name : String, id : String) {
+    private fun addNewEndId(name: String, id: String) {
         val ids = EnvManager.loadEnvId(this)
         ids[name] = id
         EnvManager.saveEnvId(this, ids)

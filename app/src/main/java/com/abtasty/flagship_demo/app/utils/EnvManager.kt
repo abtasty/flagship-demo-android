@@ -55,5 +55,15 @@ class EnvManager {
             val pref = context.getSharedPreferences("flagship-visitor-context", Context.MODE_PRIVATE)
             return pref.getString("visitorId", "defaultId")!!
         }
+
+        fun saveModeEnvId(context: Context, mode : Int) {
+            val pref = context.getSharedPreferences("Flagship_env", Context.MODE_PRIVATE).edit()
+            pref.putInt("qaMode", mode).apply()
+        }
+
+        fun loadModeEnvId(context: Context) : Int{
+            val pref = context.getSharedPreferences("Flagship_env", Context.MODE_PRIVATE)
+            return pref.getInt("qaMode", 0)
+        }
     }
 }

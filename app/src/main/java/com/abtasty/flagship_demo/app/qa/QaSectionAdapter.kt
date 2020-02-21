@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.flagship_qa_section_item.view.*
 
 class QaSectionAdapter(var onClick : (Int) -> (Unit)) : RecyclerView.Adapter<QaSectionAdapter.QaSectionViewHolder>(){
 
-    val sections = arrayOf("Predefined Context")
+    val sections = arrayOf("Predefined Context", "Bucketing")
 
     class QaSectionViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 

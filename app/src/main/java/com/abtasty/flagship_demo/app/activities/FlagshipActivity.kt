@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship.main.Flagship.Companion
 import com.abtasty.flagship_demo.app.R
 import com.abtasty.flagship_demo.app.adapters.FlagshipRecyclerViewAdapter
 import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
@@ -23,6 +24,7 @@ import com.abtasty.flagship_demo.app.qa.QaActivity
 import com.abtasty.flagship_demo.app.utils.EnvManager
 import kotlinx.android.synthetic.main.activity_flagship.*
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.*
+import kotlinx.android.synthetic.main.activity_qa.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -83,15 +85,26 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 //        Flagship.start(this.applicationContext, EnvManager.loadSelectedEnvId(this, true)) //Todo YOUR ENV ID HERE
 //        Flagship.setVisitorId(visitorId)
 //        Flagship.enableLog(Flagship.LogMode.ALL)
-        Flagship.FlagshipBuilder(applicationContext, EnvManager.loadSelectedEnvId(this, true))
+
+        Flagship.init(applicationContext, EnvManager.loadSelectedEnvId(this, true))
+//            .withFlagshipMode(Flagship.Mode.BUCKETING)
+            .withFlagshipMode(if (EnvManager.loadModeEnvId(this) == 1) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withLogEnabled(Flagship.LogMode.ALL)
             .withVisitorId(visitorId)
+            .withReadyCallback {
+                Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
+                runOnUiThread { update() }
+            }
             .start()
+
     }
 
     override fun onResume() {
         super.onResume()
+        update()
+    }
 
+    private fun update() {
         updateContext()
         updateView()
     }
@@ -149,6 +162,8 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
                 Flagship.getModification("visitorIdColor", "#DE436F", true)
             )
         )
+
+        System.out.println("#ALL " + Flagship.getModification("all_color", "NULL"))
 
         displayImage()
     }

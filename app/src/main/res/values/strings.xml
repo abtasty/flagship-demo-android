@@ -46,4 +46,10 @@
     <string name="flagship_qa_auto_context">Predefined context:</string>
     <string name="flagship_qa_auto_context_results">Results \'IS_TARGET_OK\': </string>
 
+    <string-array name="flagship_qa_context_types">
+        <item>Boolean</item>
+        <item>Number</item>
+        <item>String</item>
+    </string-array>
+
 </resources>
