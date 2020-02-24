@@ -19,8 +19,8 @@ class QaBucketingActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        initResult()
         initComponents()
+        initResult()
     }
 
     private fun initComponents() {
@@ -80,7 +80,7 @@ class QaBucketingActivity : AppCompatActivity() {
             }
             qa_bucketing_result_tv.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxChar))
         } catch (e : Exception) {
-
+            e.printStackTrace()
         }
     }
 

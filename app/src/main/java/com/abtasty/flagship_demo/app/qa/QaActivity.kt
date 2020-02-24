@@ -29,8 +29,8 @@ class QaActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        initSpinner()
         loadContextValues()
+        initSpinner()
     }
 
 
@@ -69,6 +69,7 @@ class QaActivity : AppCompatActivity() {
         refreshSpinner()
         envid_add.setOnClickListener { showAddDialog() }
         envid_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            var count = 0
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -79,14 +80,13 @@ class QaActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                parent?.adapter?.getItem(position)?.let {
-                    EnvManager.saveSelectedEnvId(this@QaActivity, it as String)
-
-//                    Flagship.start(this@QaActivity,
-//                        EnvManager.loadSelectedEnvId(this@QaActivity, true),
-//                        EnvManager.loadVisitorId(this@QaActivity))
-                    restartSDK()
+                if (count >= 1) {
+                    parent?.adapter?.getItem(position)?.let {
+                        EnvManager.saveSelectedEnvId(this@QaActivity, it as String)
+                        restartSDK()
+                    }
                 }
+                count++
             }
         }
 
@@ -100,6 +100,7 @@ class QaActivity : AppCompatActivity() {
         Flagship.Builder(this@QaActivity, EnvManager.loadSelectedEnvId(this@QaActivity, true))
             .withFlagshipMode(if (env_id_use_bucketing.isChecked) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withVisitorId(EnvManager.loadVisitorId(this@QaActivity))
+            .start()
     }
 
     private fun showAddDialog() {
