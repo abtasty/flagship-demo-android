@@ -163,8 +163,6 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
             )
         )
 
-        System.out.println("#ALL " + Flagship.getModification("all_color", "NULL"))
-
         displayImage()
     }
 
