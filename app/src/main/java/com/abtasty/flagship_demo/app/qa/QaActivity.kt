@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship.main.Flagship.Companion
 import com.abtasty.flagship_demo.app.R
 import com.abtasty.flagship_demo.app.utils.EnvManager
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.save
@@ -97,6 +98,7 @@ class QaActivity : AppCompatActivity() {
     }
 
     private fun restartSDK() {
+        System.out.println("__KEY__" + EnvManager.loadSelectedEnvId(this@QaActivity, true))
         Flagship.Builder(this@QaActivity, EnvManager.loadSelectedEnvId(this@QaActivity, true))
             .withFlagshipMode(if (env_id_use_bucketing.isChecked) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withVisitorId(EnvManager.loadVisitorId(this@QaActivity))

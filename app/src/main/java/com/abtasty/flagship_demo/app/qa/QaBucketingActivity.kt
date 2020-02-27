@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.InputFilter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.main.Flagship
 import com.abtasty.flagship_demo.app.R
 import kotlinx.android.synthetic.main.activity_qa_bucketing.*
@@ -65,6 +66,7 @@ class QaBucketingActivity : AppCompatActivity() {
                     initResult()
                 }
             })
+            Hit.Page("bucketing_view").send()
         }
     }
 

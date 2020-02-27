@@ -85,8 +85,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 //        Flagship.start(this.applicationContext, EnvManager.loadSelectedEnvId(this, true)) //Todo YOUR ENV ID HERE
 //        Flagship.setVisitorId(visitorId)
 //        Flagship.enableLog(Flagship.LogMode.ALL)
-
-        Flagship.init(applicationContext, EnvManager.loadSelectedEnvId(this, true))
+        Flagship.build(applicationContext, EnvManager.loadSelectedEnvId(this, true))
 //            .withFlagshipMode(Flagship.Mode.BUCKETING)
             .withFlagshipMode(if (EnvManager.loadModeEnvId(this) == 1) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withLogEnabled(Flagship.LogMode.ALL)
@@ -95,6 +94,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
                 Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
                 runOnUiThread { update() }
             }
+//            .withAPACRegion("coucou")
             .start()
 
     }
@@ -212,12 +212,12 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onPageClick() {
         //send a page hit tracking
-        Flagship.sendTracking(Hit.Page("MainActivity"))
+        Flagship.sendHit(Hit.Page("MainActivity"))
     }
 
     override fun onEventClick() {
         //send event hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Event(Hit.EventCategory.ACTION_TRACKING, "kpi_name")
                 .withEventLabel("Button_Event")
                 .withEventValue(System.currentTimeMillis() / 1000)
@@ -226,7 +226,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onTransactionClick() {
         //Send a transaction hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Transaction("#transaction_id", "kpi_affiliation")
                 .withCouponCode("coupon")
                 .withCurrency("EUR")
@@ -241,7 +241,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onItemClick() {
         //send a Item hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Item("#transaction_id", "product_name")
                 .withItemCategory("product_category")
                 .withItemCode("product_code")
@@ -268,7 +268,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
         val pref = getSharedPreferences("flagship-visitor-context", Context.MODE_PRIVATE)
         daysSinceLastLaunch = pref.getInt("daysSinceLastLaunch", 0)
         isVIPUser = pref.getBoolean("isVIPUser", false)
-        visitorId = pref.getString("visitorId", "defaultId")
+        visitorId = pref.getString("visitorId", "defaultId").toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
