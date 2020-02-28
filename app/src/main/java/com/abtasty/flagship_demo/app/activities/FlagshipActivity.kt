@@ -95,6 +95,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
                 Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
                 runOnUiThread { update() }
             }
+            .withAPACRegion("coucou")
             .start()
 
     }
@@ -268,7 +269,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
         val pref = getSharedPreferences("flagship-visitor-context", Context.MODE_PRIVATE)
         daysSinceLastLaunch = pref.getInt("daysSinceLastLaunch", 0)
         isVIPUser = pref.getBoolean("isVIPUser", false)
-        visitorId = pref.getString("visitorId", "defaultId")
+        visitorId = pref.getString("visitorId", "defaultId") ?: "defaultId"
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
