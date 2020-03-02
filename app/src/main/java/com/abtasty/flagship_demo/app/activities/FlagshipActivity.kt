@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.main.Flagship
 import com.abtasty.flagship.main.Flagship.Companion
+import com.abtasty.flagship.main.Flagship.Companion.syncCampaignModifications
+import com.abtasty.flagship.main.Flagship.Companion.synchronizeCampaignModifications
+import com.abtasty.flagship.utils.FlagshipContext
 import com.abtasty.flagship_demo.app.R
 import com.abtasty.flagship_demo.app.adapters.FlagshipRecyclerViewAdapter
 import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
@@ -128,11 +131,11 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
     private fun updateView() {
 
         user_id.text = visitorId
-        Flagship.syncCampaignModifications({
+        synchronizeCampaignModifications {
             this@FlagshipActivity.runOnUiThread {
                 applyFlagship()
             }
-        })
+        }
     }
 
     /**
