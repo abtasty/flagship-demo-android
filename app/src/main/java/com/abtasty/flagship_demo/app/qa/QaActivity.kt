@@ -8,8 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abtasty.flagship.main.Flagship
 import com.abtasty.flagship_demo.app.R
@@ -17,8 +22,13 @@ import com.abtasty.flagship_demo.app.utils.ConfManager
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.save
 import kotlinx.android.synthetic.main.activity_qa.*
 import kotlinx.android.synthetic.main.activity_qa_dialog.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class QaActivity : AppCompatActivity() {
+
+    var sendRequestLog = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,9 +108,11 @@ class QaActivity : AppCompatActivity() {
         val builder = Flagship.Builder(this@QaActivity, ConfManager.currentConf.selectedEnvId)
             .withFlagshipMode(if (env_id_use_bucketing.isChecked) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withVisitorId(ConfManager.currentConf.visitorId)
-        if (ConfManager.currentConf.useAPAC)
-            builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
+//        if (ConfManager.currentConf.useAPAC)
+//            builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
         builder.start()
+        sendRequestLog = env_id_use_bucketing.isChecked
+        initLogs()
     }
 
     private fun showAddDialog() {
@@ -138,6 +150,34 @@ class QaActivity : AppCompatActivity() {
     private fun addNewEndId(name: String, id: String) {
         ConfManager.currentConf.envIds[name] = id
         ConfManager.saveConf(this@QaActivity)
+    }
+
+    fun initLogs() {
+        val logCatViewModel = QaActivity.LogCatViewModel()
+        clearLogCat()
+        logCatViewModel.logCatOutput().observe(this, Observer { logMessage ->
+            if (logMessage.contains("bucketing") && (logMessage.contains("200") || logMessage.contains("304")) && sendRequestLog) {
+                Toast.makeText(this, logMessage, Toast.LENGTH_LONG).show()
+                sendRequestLog = false
+            }
+        })
+    }
+
+    fun clearLogCat() {
+        GlobalScope.launch {
+            Runtime.getRuntime().exec("logcat -c")
+        }
+    }
+
+    class LogCatViewModel : ViewModel() {
+        fun logCatOutput() = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+            Runtime.getRuntime().exec("logcat -c")
+            Runtime.getRuntime().exec("logcat")
+                .inputStream
+                .bufferedReader()
+                .useLines { lines -> lines.forEach { line -> emit(line) }
+                }
+        }
     }
 }
 

@@ -93,9 +93,10 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
                 Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
                 runOnUiThread { update() }
             }
-            .withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
+//            .withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
             .start()
 
+        Flagship.activateModification("J387398DKJNAHIJHEK")
     }
 
     override fun onResume() {
@@ -139,7 +140,6 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
      *
      */
     private fun applyFlagship() {
-
         //Enable the feature with the value returned by Flagship
         (campaigns_rv.adapter as? FlagshipRecyclerViewAdapter)?.let {
             it.enableVIPFeature =
