@@ -42,21 +42,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Use Bucketing ?"
+            android:text="Use Bucketing ? "
             android:textColor="@color/gradient_selected_end"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/envid_spinner" />
+
+    <Switch
+            android:id="@+id/env_id_use_apac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Use APAC region ? "
+            android:textColor="@color/gradient_selected_end"
+            app:layout_constraintStart_toStartOf="@+id/env_id_use_bucketing"
+            app:layout_constraintTop_toBottomOf="@+id/env_id_use_bucketing" />
 
     <com.abtasty.flagship_demo.app.utils.LatoLightTextView
             android:id="@+id/envid_title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="@string/flagship_qa_section_title"
             android:textColor="@color/gradient_start"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/env_id_use_bucketing" />
+            app:layout_constraintTop_toBottomOf="@+id/env_id_use_apac" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/flagship_qa_section_recycler"

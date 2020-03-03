@@ -16,15 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.main.Flagship
-import com.abtasty.flagship.main.Flagship.Companion
 import com.abtasty.flagship_demo.app.R
 import com.abtasty.flagship_demo.app.adapters.FlagshipRecyclerViewAdapter
 import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
 import com.abtasty.flagship_demo.app.qa.QaActivity
-import com.abtasty.flagship_demo.app.utils.EnvManager
+import com.abtasty.flagship_demo.app.utils.ConfManager
 import kotlinx.android.synthetic.main.activity_flagship.*
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.*
-import kotlinx.android.synthetic.main.activity_qa.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -77,7 +75,6 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flagship)
-
         initComponents()
 
 //        //Flagship init
@@ -86,16 +83,17 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 //        Flagship.setVisitorId(visitorId)
 //        Flagship.enableLog(Flagship.LogMode.ALL)
 
-        Flagship.init(applicationContext, EnvManager.loadSelectedEnvId(this, true))
+        ConfManager.loadConf(this)
+        Flagship.init(applicationContext, ConfManager.currentConf.selectedEnvId)
 //            .withFlagshipMode(Flagship.Mode.BUCKETING)
-            .withFlagshipMode(if (EnvManager.loadModeEnvId(this) == 1) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
+            .withFlagshipMode(if (ConfManager.currentConf.useBucketing) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withLogEnabled(Flagship.LogMode.ALL)
             .withVisitorId(visitorId)
             .withReadyCallback {
                 Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
                 runOnUiThread { update() }
             }
-            .withAPACRegion("coucou")
+            .withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
             .start()
 
     }

@@ -8,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
-import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abtasty.flagship.main.Flagship
 import com.abtasty.flagship_demo.app.R
-import com.abtasty.flagship_demo.app.utils.EnvManager
+import com.abtasty.flagship_demo.app.utils.ConfManager
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.save
 import kotlinx.android.synthetic.main.activity_qa.*
 import kotlinx.android.synthetic.main.activity_qa_dialog.view.*
@@ -41,11 +39,8 @@ class QaActivity : AppCompatActivity() {
                 startSubQAActivity(it)
             }
 
-        val mode = EnvManager.loadModeEnvId(this)
-        if (mode == 0)
-            env_id_use_bucketing.isChecked = false
-        else if (mode == 1)
-            env_id_use_bucketing.isChecked = true
+        val mode = ConfManager.currentConf.useBucketing
+        env_id_use_bucketing.isChecked = mode
     }
 
     fun startSubQAActivity(position: Int) {
@@ -82,7 +77,8 @@ class QaActivity : AppCompatActivity() {
             ) {
                 if (count >= 1) {
                     parent?.adapter?.getItem(position)?.let {
-                        EnvManager.saveSelectedEnvId(this@QaActivity, it as String)
+                        ConfManager.currentConf.selectedEnvId = (it as String).split(" - ")[1]
+                        ConfManager.saveConf(this@QaActivity)
                         restartSDK()
                     }
                 }
@@ -91,16 +87,20 @@ class QaActivity : AppCompatActivity() {
         }
 
         env_id_use_bucketing.setOnCheckedChangeListener { buttonView, isChecked ->
-            EnvManager.saveModeEnvId(this@QaActivity, if (isChecked) 1 else 0)
+            ConfManager.currentConf.useBucketing = isChecked
+            ConfManager.saveConf(this@QaActivity)
             restartSDK()
         }
     }
 
     private fun restartSDK() {
-        Flagship.Builder(this@QaActivity, EnvManager.loadSelectedEnvId(this@QaActivity, true))
+        ConfManager.loadConf(this@QaActivity)
+        val builder = Flagship.Builder(this@QaActivity, ConfManager.currentConf.selectedEnvId)
             .withFlagshipMode(if (env_id_use_bucketing.isChecked) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
-            .withVisitorId(EnvManager.loadVisitorId(this@QaActivity))
-            .start()
+            .withVisitorId(ConfManager.currentConf.visitorId)
+        if (ConfManager.currentConf.useAPAC)
+            builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
+        builder.start()
     }
 
     private fun showAddDialog() {
@@ -127,9 +127,8 @@ class QaActivity : AppCompatActivity() {
     }
 
     private fun refreshSpinner() {
-        val list = EnvManager.loadEnvId(this).map { e -> e.key + " - " + e.value }
-        val selected = EnvManager.loadSelectedEnvId(this)
-        val index = list.indexOf(selected)
+        val list = ConfManager.currentConf.envIds.map { e -> e.key + " - " + e.value}
+        val index = list.indexOfFirst { e -> e.contains(ConfManager.currentConf.selectedEnvId) }
         envid_spinner.adapter = ArrayAdapter(this, R.layout.activity_qa_spinner_elem, list)
         if (index > 0) {
             envid_spinner.setSelection(index)
@@ -137,9 +136,8 @@ class QaActivity : AppCompatActivity() {
     }
 
     private fun addNewEndId(name: String, id: String) {
-        val ids = EnvManager.loadEnvId(this)
-        ids[name] = id
-        EnvManager.saveEnvId(this, ids)
+        ConfManager.currentConf.envIds[name] = id
+        ConfManager.saveConf(this@QaActivity)
     }
 }
 
