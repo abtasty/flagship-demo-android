@@ -17,6 +17,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship.main.Flagship.Companion
 import com.abtasty.flagship_demo.app.R
 import com.abtasty.flagship_demo.app.utils.ConfManager
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.save
@@ -51,6 +52,7 @@ class QaActivity : AppCompatActivity() {
 
         val mode = ConfManager.currentConf.useBucketing
         env_id_use_bucketing.isChecked = mode
+        env_id_use_apac.isChecked = ConfManager.currentConf.useAPAC
     }
 
     fun startSubQAActivity(position: Int) {
@@ -101,15 +103,23 @@ class QaActivity : AppCompatActivity() {
             ConfManager.saveConf(this@QaActivity)
             restartSDK()
         }
+
+        env_id_use_apac.setOnCheckedChangeListener { buttonView, isChecked ->
+            ConfManager.currentConf.useAPAC = isChecked
+            ConfManager.saveConf(this@QaActivity)
+            restartSDK()
+        }
     }
 
     private fun restartSDK() {
-        ConfManager.loadConf(this@QaActivity)
+//        ConfManager.loadConf(this@QaActivity)
         val builder = Flagship.Builder(this@QaActivity, ConfManager.currentConf.selectedEnvId)
             .withFlagshipMode(if (env_id_use_bucketing.isChecked) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withVisitorId(ConfManager.currentConf.visitorId)
-//        if (ConfManager.currentConf.useAPAC)
-//            builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
+        if (ConfManager.currentConf.useAPAC)
+            builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
+        else
+            builder.withAPACRegion("")
         builder.start()
         sendRequestLog = env_id_use_bucketing.isChecked
         initLogs()
@@ -139,7 +149,7 @@ class QaActivity : AppCompatActivity() {
     }
 
     private fun refreshSpinner() {
-        val list = ConfManager.currentConf.envIds.map { e -> e.key + " - " + e.value}
+        val list = ConfManager.currentConf.envIds.map { e -> e.key + " - " + e.value }
         val index = list.indexOfFirst { e -> e.contains(ConfManager.currentConf.selectedEnvId) }
         envid_spinner.adapter = ArrayAdapter(this, R.layout.activity_qa_spinner_elem, list)
         if (index > 0) {
@@ -156,7 +166,10 @@ class QaActivity : AppCompatActivity() {
         val logCatViewModel = QaActivity.LogCatViewModel()
         clearLogCat()
         logCatViewModel.logCatOutput().observe(this, Observer { logMessage ->
-            if (logMessage.contains("bucketing") && (logMessage.contains("200") || logMessage.contains("304")) && sendRequestLog) {
+            if (logMessage.contains("bucketing") && (logMessage.contains("200") || logMessage.contains(
+                    "304"
+                )) && sendRequestLog
+            ) {
                 Toast.makeText(this, logMessage, Toast.LENGTH_LONG).show()
                 sendRequestLog = false
             }
@@ -175,7 +188,8 @@ class QaActivity : AppCompatActivity() {
             Runtime.getRuntime().exec("logcat")
                 .inputStream
                 .bufferedReader()
-                .useLines { lines -> lines.forEach { line -> emit(line) }
+                .useLines { lines ->
+                    lines.forEach { line -> emit(line) }
                 }
         }
     }

@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship.main.Flagship.Companion
+import com.abtasty.flagship.main.Flagship.Companion.syncCampaignModifications
+import com.abtasty.flagship.main.Flagship.Companion.synchronizeCampaignModifications
 import com.abtasty.flagship_demo.app.R
 import com.abtasty.flagship_demo.app.adapters.FlagshipRecyclerViewAdapter
 import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
@@ -84,7 +87,8 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 //        Flagship.enableLog(Flagship.LogMode.ALL)
 
         ConfManager.loadConf(this)
-        Flagship.init(applicationContext, ConfManager.currentConf.selectedEnvId)
+        val builder = Flagship.builder(applicationContext, ConfManager.currentConf.selectedEnvId)
+
 //            .withFlagshipMode(Flagship.Mode.BUCKETING)
             .withFlagshipMode(if (ConfManager.currentConf.useBucketing) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
             .withLogEnabled(Flagship.LogMode.ALL)
@@ -93,10 +97,9 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
                 Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
                 runOnUiThread { update() }
             }
-//            .withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
-            .start()
-
-        Flagship.activateModification("J387398DKJNAHIJHEK")
+        if (ConfManager.currentConf.useAPAC)
+            builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
+        builder.start()
     }
 
     override fun onResume() {
@@ -128,11 +131,11 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
     private fun updateView() {
 
         user_id.text = visitorId
-        Flagship.syncCampaignModifications({
+        synchronizeCampaignModifications {
             this@FlagshipActivity.runOnUiThread {
                 applyFlagship()
             }
-        })
+        }
     }
 
     /**
@@ -211,12 +214,12 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onPageClick() {
         //send a page hit tracking
-        Flagship.sendTracking(Hit.Page("MainActivity"))
+        Flagship.sendHit(Hit.Page("MainActivity"))
     }
 
     override fun onEventClick() {
         //send event hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Event(Hit.EventCategory.ACTION_TRACKING, "kpi_name")
                 .withEventLabel("Button_Event")
                 .withEventValue(System.currentTimeMillis() / 1000)
@@ -225,7 +228,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onTransactionClick() {
         //Send a transaction hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Transaction("#transaction_id", "kpi_affiliation")
                 .withCouponCode("coupon")
                 .withCurrency("EUR")
@@ -240,7 +243,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onItemClick() {
         //send a Item hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Item("#transaction_id", "product_name")
                 .withItemCategory("product_category")
                 .withItemCode("product_code")

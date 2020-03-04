@@ -30,15 +30,15 @@ class AutomaticContextActivity : AppCompatActivity() {
     fun initCampaigns() {
         send.setOnClickListener {
             sendRequestLog = true
-            Flagship.syncCampaignModifications ({
+            Flagship.syncCampaignModifications {
                 runOnUiThread {
                     val value = Flagship.getModification("IS_TARGET_OK", "Null", true)
                     auto_context_result_title.text = getString(R.string.flagship_qa_auto_context_results) + " $value"
-                    Flagship.sendTracking(Hit.Event(Hit.EventCategory.ACTION_TRACKING, "kpi_qa_context")
+                    Flagship.sendHit(Hit.Event(Hit.EventCategory.ACTION_TRACKING, "kpi_qa_context")
                         .withEventValue(666)
                         .withEventLabel("kpi_qa_context2"))
                 }
-            })
+            }
         }
         reset.setOnClickListener {
             (auto_context_rv.adapter as? QaContextAutoAdapter)?.refresh(this@AutomaticContextActivity)

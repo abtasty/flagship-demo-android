@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.main.Flagship
-import com.abtasty.flagship.utils.FlagshipContext
+import com.abtasty.flagship.utils.PresetContext
 import com.abtasty.flagship_demo.app.R
 import kotlinx.android.synthetic.main.flagship_qa_auto_context_item.view.*
 
 class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSectionViewHolder>(){
 
-    var contextValues = LinkedHashMap<FlagshipContext, Any>()
+    var contextValues = LinkedHashMap<PresetContext, Any>()
 
     class QaSectionViewHolder(itemView : View, var listener : CustomEditTextListener) : RecyclerView.ViewHolder(itemView) {
 
@@ -22,7 +22,7 @@ class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSection
             itemView.qa_auto_context_value.addTextChangedListener(listener)
         }
 
-        fun bind(key: FlagshipContext, value: Any?) {
+        fun bind(key: PresetContext, value: Any?) {
             listener.updatePosition(key)
             itemView.qa_auto_context_key.text = key.key
             itemView.qa_auto_context_value.setText(value.toString())
@@ -31,21 +31,21 @@ class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSection
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QaSectionViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.flagship_qa_auto_context_item, parent, false)
-        return QaSectionViewHolder(view, CustomEditTextListener { flagshipContext: FlagshipContext, any: Any ->
-            if (contextValues[flagshipContext].toString() != any.toString()) {
+        return QaSectionViewHolder(view, CustomEditTextListener { presetContext: PresetContext, any: Any ->
+            if (contextValues[presetContext].toString() != any.toString()) {
 
-                val castedValue = castValue(flagshipContext, any)
+                val castedValue = castValue(presetContext, any)
                 castedValue?.let {
-                    Flagship.updateContext(flagshipContext, it)
-                    contextValues[flagshipContext] = it
+                    Flagship.updateContext(presetContext, it)
+                    contextValues[presetContext] = it
                 }
             }
         })
     }
 
-    fun castValue(flagshipContext: FlagshipContext, value: Any) : Any? {
+    fun castValue(presetContext: PresetContext, value: Any) : Any? {
         try {
-            if (flagshipContext.checkValue(value)) {
+            if (presetContext.checkValue(value)) {
                 return value
             }
         } catch (e : Exception) {
@@ -54,7 +54,7 @@ class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSection
 
         try {
             val newValue = value.toString().toDouble()
-            if (flagshipContext.checkValue(newValue)) {
+            if (presetContext.checkValue(newValue)) {
                 return newValue
             }
         } catch (e : Exception) {
@@ -63,7 +63,7 @@ class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSection
 
         try {
             val newValue = value.toString().toUpperCase().toBoolean()
-            if (flagshipContext.checkValue(newValue)) {
+            if (presetContext.checkValue(newValue)) {
                 return newValue
             }
         } catch (e : Exception) {
@@ -72,7 +72,7 @@ class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSection
 
         try {
             val newValue = value.toString().toInt()
-            if (flagshipContext.checkValue(newValue)) {
+            if (presetContext.checkValue(newValue)) {
                 return newValue
             }
         } catch (e : Exception) {
@@ -82,10 +82,10 @@ class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSection
         return null
     }
 
-    class CustomEditTextListener(var onValueChanged : (FlagshipContext, Any) -> (Unit)) : TextWatcher {
-        private var key : FlagshipContext? = null
+    class CustomEditTextListener(var onValueChanged : (PresetContext, Any) -> (Unit)) : TextWatcher {
+        private var key : PresetContext? = null
 
-        fun updatePosition(key : FlagshipContext) {
+        fun updatePosition(key : PresetContext) {
             this.key = key
         }
 
@@ -121,9 +121,9 @@ class QaContextAutoAdapter : RecyclerView.Adapter<QaContextAutoAdapter.QaSection
         holder.bind(key, contextValues[key])
     }
 
-    fun loadDeviceContext(context: Context) : LinkedHashMap<FlagshipContext, Any> {
-        val newContextValues = LinkedHashMap<FlagshipContext, Any>()
-        for (fsContext in FlagshipContext.values()) {
+    fun loadDeviceContext(context: Context) : LinkedHashMap<PresetContext, Any> {
+        val newContextValues = LinkedHashMap<PresetContext, Any>()
+        for (fsContext in PresetContext.values()) {
             val value = fsContext.value(context) ?: ""
             val castedValue = castValue(fsContext, value)
             castedValue?.let {
