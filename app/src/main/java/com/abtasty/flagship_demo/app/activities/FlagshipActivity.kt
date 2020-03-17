@@ -16,9 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.main.Flagship
-import com.abtasty.flagship.main.Flagship.Companion
-import com.abtasty.flagship.main.Flagship.Companion.syncCampaignModifications
-import com.abtasty.flagship.main.Flagship.Companion.synchronizeCampaignModifications
 import com.abtasty.flagship_demo.app.R
 import com.abtasty.flagship_demo.app.adapters.FlagshipRecyclerViewAdapter
 import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
@@ -97,9 +94,14 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
                 Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
                 runOnUiThread { update() }
             }
+
+
+
         if (ConfManager.currentConf.useAPAC)
             builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
         builder.start()
+
+
     }
 
     override fun onResume() {
@@ -131,7 +133,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
     private fun updateView() {
 
         user_id.text = visitorId
-        synchronizeCampaignModifications {
+        Flagship.synchronizeModifications {
             this@FlagshipActivity.runOnUiThread {
                 applyFlagship()
             }

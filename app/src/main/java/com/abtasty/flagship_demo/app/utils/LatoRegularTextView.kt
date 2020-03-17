@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 
 
-class LatoRegularTextView : TextView {
+class LatoRegularTextView : AppCompatTextView {
     constructor(context: Context?) : super(context) {
         init()
     }

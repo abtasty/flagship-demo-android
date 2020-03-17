@@ -60,6 +60,11 @@ class ConfManager {
             false,
             false,
             "Raph")
+//        var currentConf : Conf = Conf(hashMapOf("Top chef prod" to "blhsrbjggr132j03r630"),
+//            "blhsrbjggr132j03r630",
+//            false,
+//            false,
+//            "Arthur")
 
         fun loadConf(context: Context) {
             currentConf = initConf(context)

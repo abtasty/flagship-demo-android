@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.abtasty.flagship.api.Hit
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship.main.Flagship.Companion
 import com.abtasty.flagship_demo.app.R
 import kotlinx.android.synthetic.main.activity_qa_bucketing.*
 
@@ -61,7 +62,7 @@ class QaBucketingActivity : AppCompatActivity() {
         }
 
         qa_sync.setOnClickListener {
-            Flagship.syncCampaignModifications({
+            Flagship.synchronizeModifications({
                 runOnUiThread {
                     initResult()
                 }
