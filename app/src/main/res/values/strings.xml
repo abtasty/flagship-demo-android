@@ -34,5 +34,22 @@
 
     <string name="flagship_configuration_desc">Zoom in the image to see the campaign configuration\nto reproduce in your account : </string>
 
+    <string name="flagship_qa_envid_title">Your envID : </string>
+    <string name="flagship_qa_envid_new"><u>Add new</u></string>
+    <string name="flagship_qa_envid_name">Name</string>
+    <string name="flagship_qa_envid_id">Id</string>
+
+    <string name="flagship_qa_envid_warning">Warning ! you have to kill and restart your application for this to take effect.</string>
+    <string name="flagship_qa_section_title">QA sections : </string>
+    <string name="flagship_qa_section_context_send">Send campaigns request</string>
+    <string name="flagship_qa_section_context_reset">reset</string>
+    <string name="flagship_qa_auto_context">Predefined context:</string>
+    <string name="flagship_qa_auto_context_results">Results \'IS_TARGET_OK\': </string>
+
+    <string-array name="flagship_qa_context_types">
+        <item>Boolean</item>
+        <item>Number</item>
+        <item>String</item>
+    </string-array>
 
 </resources>

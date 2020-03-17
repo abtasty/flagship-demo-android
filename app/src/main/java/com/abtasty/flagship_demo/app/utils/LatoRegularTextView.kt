@@ -1,12 +1,13 @@
-package com.abtasty.flagship.app.utils
+package com.abtasty.flagship_demo.app.utils
 
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 
 
-class LatoItalicTextView : TextView {
+class LatoRegularTextView : AppCompatTextView {
     constructor(context: Context?) : super(context) {
         init()
     }
@@ -20,7 +21,7 @@ class LatoItalicTextView : TextView {
     }
 
     private fun init() {
-        val bold = Typeface.createFromAsset(context.assets, "fonts/Lato-Italic.ttf")
+        val bold = Typeface.createFromAsset(context.assets, "fonts/Lato-Regular.ttf")
         typeface = bold
     }
 }

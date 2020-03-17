@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app.activities
+package com.abtasty.flagship_demo.app.activities
 
 import android.app.Dialog
 import android.content.Context
@@ -8,14 +8,19 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abtasty.flagship.api.Hit
-import com.abtasty.flagship.app.R
-import com.abtasty.flagship.app.adapters.FlagshipRecyclerViewAdapter
-import com.abtasty.flagship.app.interfaces.IFlagshipRecycler
 import com.abtasty.flagship.main.Flagship
+import com.abtasty.flagship_demo.app.R
+import com.abtasty.flagship_demo.app.adapters.FlagshipRecyclerViewAdapter
+import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
+import com.abtasty.flagship_demo.app.qa.QaActivity
+import com.abtasty.flagship_demo.app.utils.ConfManager
 import kotlinx.android.synthetic.main.activity_flagship.*
 import kotlinx.android.synthetic.main.activity_flagship_dialog.view.*
 import kotlinx.coroutines.GlobalScope
@@ -70,14 +75,41 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flagship)
-
         initComponents()
 
-        //Flagship init
-        Flagship.start(this.applicationContext, "") //Todo YOUR ENV ID HERE
-        Flagship.setVisitorId(visitorId)
-        Flagship.enableLog(Flagship.LogMode.ALL)
+//        //Flagship init
+////        Flagship.start(this.applicationContext, "bkk4s7gcmjcg07fke9dg") //Todo YOUR ENV ID HERE
+//        Flagship.start(this.applicationContext, EnvManager.loadSelectedEnvId(this, true)) //Todo YOUR ENV ID HERE
+//        Flagship.setVisitorId(visitorId)
+//        Flagship.enableLog(Flagship.LogMode.ALL)
 
+        ConfManager.loadConf(this)
+        val builder = Flagship.builder(applicationContext, ConfManager.currentConf.selectedEnvId)
+
+//            .withFlagshipMode(Flagship.Mode.BUCKETING)
+            .withFlagshipMode(if (ConfManager.currentConf.useBucketing) Flagship.Mode.BUCKETING else Flagship.Mode.DECISION_API)
+            .withLogEnabled(Flagship.LogMode.ALL)
+            .withVisitorId(visitorId)
+            .withReadyCallback {
+                Hit.Event(Hit.EventCategory.ACTION_TRACKING, "sdk-android-ready").send()
+                runOnUiThread { update() }
+            }
+
+
+
+        if (ConfManager.currentConf.useAPAC)
+            builder.withAPACRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")
+        builder.start()
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        update()
+    }
+
+    private fun update() {
         updateContext()
         updateView()
     }
@@ -101,7 +133,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
     private fun updateView() {
 
         user_id.text = visitorId
-        Flagship.syncCampaignModifications {
+        Flagship.synchronizeModifications {
             this@FlagshipActivity.runOnUiThread {
                 applyFlagship()
             }
@@ -113,7 +145,6 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
      *
      */
     private fun applyFlagship() {
-
         //Enable the feature with the value returned by Flagship
         (campaigns_rv.adapter as? FlagshipRecyclerViewAdapter)?.let {
             it.enableVIPFeature =
@@ -185,12 +216,12 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onPageClick() {
         //send a page hit tracking
-        Flagship.sendTracking(Hit.Page("MainActivity"))
+        Flagship.sendHit(Hit.Page("MainActivity"))
     }
 
     override fun onEventClick() {
         //send event hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Event(Hit.EventCategory.ACTION_TRACKING, "kpi_name")
                 .withEventLabel("Button_Event")
                 .withEventValue(System.currentTimeMillis() / 1000)
@@ -199,7 +230,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onTransactionClick() {
         //Send a transaction hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Transaction("#transaction_id", "kpi_affiliation")
                 .withCouponCode("coupon")
                 .withCurrency("EUR")
@@ -214,7 +245,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
 
     override fun onItemClick() {
         //send a Item hit tracking
-        Flagship.sendTracking(
+        Flagship.sendHit(
             Hit.Item("#transaction_id", "product_name")
                 .withItemCategory("product_category")
                 .withItemCode("product_code")
@@ -241,7 +272,28 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
         val pref = getSharedPreferences("flagship-visitor-context", Context.MODE_PRIVATE)
         daysSinceLastLaunch = pref.getInt("daysSinceLastLaunch", 0)
         isVIPUser = pref.getBoolean("isVIPUser", false)
-        visitorId = pref.getString("visitorId", "defaultId")
+        visitorId = pref.getString("visitorId", "defaultId") ?: "defaultId"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.qa -> {
+                startQaActivity()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun startQaActivity() {
+        val i = Intent(this, QaActivity::class.java)
+        startActivity(i)
     }
 
 }

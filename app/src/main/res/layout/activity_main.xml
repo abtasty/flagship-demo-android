@@ -16,7 +16,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        <com.abtasty.flagship.app.utils.LatoBoldTextView
+        <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <com.abtasty.flagship.app.utils.LatoBoldTextView
+        <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
                 android:id="@+id/tv_visitorId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toTopOf="@id/tv_level"
                 app:layout_constraintWidth_percent="0.4" />
 
-        <com.abtasty.flagship.app.utils.LatoBoldTextView
+        <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
                 android:id="@+id/tv_vip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 app:layout_constraintLeft_toLeftOf="@id/et_visitorId"
                 app:layout_constraintTop_toTopOf="@id/tv_vip" />
 
-        <com.abtasty.flagship.app.utils.LatoBoldTextView
+        <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
                 android:id="@+id/tv_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_visitor_context">
 
-        <com.abtasty.flagship.app.utils.LatoBoldTextView
+        <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
                 android:id="@+id/tv_content_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <com.abtasty.flagship.app.utils.LatoBoldTextView
+        <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
                 android:id="@+id/tv_content_level_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
             app:layout_constraintTop_toBottomOf="@id/cl_visitor_context"
             android:clickable="true">
 
-        <com.abtasty.flagship.app.utils.LatoBoldTextView
+        <com.abtasty.flagship_demo.app.utils.LatoBoldTextView
                 android:id="@+id/tv_no_vip"
                 android:layout_width="0dp"
                 android:layout_height="0dp"

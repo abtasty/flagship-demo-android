@@ -1,11 +1,11 @@
-package com.abtasty.flagship.app.adapters
+package com.abtasty.flagship_demo.app.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.abtasty.flagship.app.R
-import com.abtasty.flagship.app.interfaces.IFlagshipRecycler
+import com.abtasty.flagship_demo.app.R
+import com.abtasty.flagship_demo.app.interfaces.IFlagshipRecycler
 import kotlinx.android.synthetic.main.activity_flagship_item.view.*
 import kotlinx.android.synthetic.main.activity_flagship_item.view.item_desc
 import kotlinx.android.synthetic.main.activity_flagship_item.view.item_title

@@ -1,4 +1,4 @@
-package com.abtasty.flagship.app
+package com.abtasty.flagship_demo.app
 
 import org.junit.Test
 
