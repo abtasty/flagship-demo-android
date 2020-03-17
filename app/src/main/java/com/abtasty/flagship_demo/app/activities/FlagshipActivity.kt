@@ -71,7 +71,7 @@ class FlagshipActivity : AppCompatActivity(), IFlagshipRecycler {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flagship)
         initComponents()
-        val builder = Flagship.builder(applicationContext, "bkk4s7gcmjcg07fke9dg")
+        val builder = Flagship.builder(applicationContext, "your_env_id")
 //            .withFlagshipMode(Flagship.Mode.BUCKETING)
             .withFlagshipMode(Flagship.Mode.DECISION_API)
             .withLogEnabled(Flagship.LogMode.ALL)
