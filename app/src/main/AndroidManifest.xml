@@ -11,9 +11,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".qa.QaBucketingActivity"></activity>
-        <activity android:name=".qa.AutomaticContextActivity" />
-        <activity android:name=".qa.QaActivity" />
         <activity android:name=".activities.ConfigurationActivity" />
         <activity
                 android:name=".activities.FlagshipActivity"

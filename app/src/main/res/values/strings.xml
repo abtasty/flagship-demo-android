@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Flagship Demo</string>
-    <string name="title_activity_flagship">Flagship Demo</string>
 
     <string name="flagship_campaign_1_title">1) Bottom logo</string>
     <string name="flagship_campaign_1_desc">This campaign displays a logo at the bottom left \nof this app.</string>
@@ -33,23 +32,5 @@
     <string name="flagship_dialog_days">Days since last app \nlaunch :</string>
 
     <string name="flagship_configuration_desc">Zoom in the image to see the campaign configuration\nto reproduce in your account : </string>
-
-    <string name="flagship_qa_envid_title">Your envID : </string>
-    <string name="flagship_qa_envid_new"><u>Add new</u></string>
-    <string name="flagship_qa_envid_name">Name</string>
-    <string name="flagship_qa_envid_id">Id</string>
-
-    <string name="flagship_qa_envid_warning">Warning ! you have to kill and restart your application for this to take effect.</string>
-    <string name="flagship_qa_section_title">QA sections : </string>
-    <string name="flagship_qa_section_context_send">Send campaigns request</string>
-    <string name="flagship_qa_section_context_reset">reset</string>
-    <string name="flagship_qa_auto_context">Predefined context:</string>
-    <string name="flagship_qa_auto_context_results">Results \'IS_TARGET_OK\': </string>
-
-    <string-array name="flagship_qa_context_types">
-        <item>Boolean</item>
-        <item>Number</item>
-        <item>String</item>
-    </string-array>
 
 </resources>
