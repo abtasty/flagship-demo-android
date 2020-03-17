@@ -55,9 +55,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
-    implementation project(':flagship')
-//    implementation 'com.abtasty:flagship-android:1.2.0'
-
+//    implementation project(':flagship')
+    implementation 'com.abtasty:flagship-android:1.2.0'
 }
 
 androidExtensions {
