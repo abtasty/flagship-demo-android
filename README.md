@@ -1,5 +1,4 @@
 
- 
 How to use this sample app :
 
 1) Set your env ID at the Flagship init
@@ -32,4 +31,5 @@ You can send Flagship hit tracking by clicking the 4 corresponding buttons in th
 -------------------------------------------------------------------------------------------------
 
 Technical documentation is available at : https://developers.flagship.io/android/
+
 
